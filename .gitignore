@@ -1,3 +1,6 @@
 coverage/*
 config/database.yml
 *.DS_Store
+arel.iml
+arel.ipr
+arel.iws
