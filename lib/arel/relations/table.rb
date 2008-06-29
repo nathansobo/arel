@@ -10,6 +10,11 @@ module Arel
       @name, @engine = name.to_s, engine
     end
 
+    def attribute(name)
+      @attributes ||= []
+      @attributes.push(Attribute.new(self, name.to_sym))
+    end
+
     def attributes
       @attributes ||= columns.collect do |column|
         Attribute.new(self, column.name.to_sym)

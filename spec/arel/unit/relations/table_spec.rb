@@ -5,7 +5,7 @@ module Arel
     before do
       @relation = Table.new(:users)
     end
-  
+
     describe '[]' do
       describe 'when given a', Symbol do
         it "manufactures an attribute if the symbol names an attribute within the relation" do
@@ -50,7 +50,18 @@ module Arel
         @relation.column_for(@relation[:id]).should == @relation.columns.detect { |c| c.name == 'id' }
       end
     end
-    
+
+    describe "#attribute" do
+      it "adds an attribute by the given name to the table" do
+        @relation.attribute(:id)
+        @relation.attribute('name')
+        @relation.attributes.should == [
+          Attribute.new(@relation, :id),
+          Attribute.new(@relation, :name)
+        ]
+      end
+    end
+
     describe '#attributes' do
       it 'manufactures attributes corresponding to columns in the table' do
         @relation.attributes.should == [
