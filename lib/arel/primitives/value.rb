@@ -3,8 +3,7 @@ module Arel
     attributes :value, :relation
     deriving :initialize, :==
     delegate :inclusion_predicate_sql, :equality_predicate_sql, :to => :value
-    
-    
+
     def to_sql(formatter = Sql::WhereCondition.new(relation))
       formatter.value value
     end

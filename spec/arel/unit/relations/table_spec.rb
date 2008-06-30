@@ -17,10 +17,10 @@ module Arel
     end
 
     describe "#insert" do
-      it "adds the given object to the table's cache" do
+      it "adds the given object to the table's cache and returns it" do
         tuple = tuple_class.new(:id => 1, :name => "Alicia")
         relation.read.should be_empty
-        relation.insert(tuple)
+        relation.insert(tuple).should == tuple
         relation.read.should == [tuple]
       end
     end

@@ -53,6 +53,10 @@ module Arel
     def predicate_sql
       operand2.equality_predicate_sql
     end
+
+    def call(tuple)
+      tuple.value(operand1) == tuple.value(operand2)
+    end
   end
 
   class GreaterThanOrEqualTo < Binary

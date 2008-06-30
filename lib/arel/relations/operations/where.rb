@@ -12,5 +12,11 @@ module Arel
     def wheres
       @wheres ||= (relation.wheres + [predicate]).collect { |p| p.bind(self) }
     end
+
+    def read
+      relation.read.select do |tuple|
+        predicate.call(tuple)
+      end
+    end
   end
 end

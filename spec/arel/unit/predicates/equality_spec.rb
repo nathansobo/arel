@@ -23,6 +23,21 @@ module Arel
         Equality.new(@attribute1, @attribute2).should == Equality.new(@attribute2, @attribute1)
       end
     end
+
+    describe "#call" do
+      attr_reader :user_1, :user_2
+
+      before do
+        @user_1 = user_tuple_class.new(:id => 1, :name => "Alicia")
+        @user_2 = user_tuple_class.new(:id => 2, :name => "Maria")
+      end
+
+      it "returns true if the attribute of the given tuple is == to the operand and false otherwise" do
+        predicate = Equality.new(users_relation[:id], 1)
+        predicate.call(user_1).should be_true
+        predicate.call(user_2).should be_false
+      end
+    end
     
     describe '#to_sql' do
       describe 'when relating to a non-nil value' do
