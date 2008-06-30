@@ -159,5 +159,10 @@ module Arel
       def skipped;                nil end
     end
     include DefaultOperations
+
+    module Orm
+      attr_accessor :tuple_class
+    end
+    include Orm
   end
 end

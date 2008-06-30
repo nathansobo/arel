@@ -157,13 +157,13 @@ module Arel
         end
 
         describe '#insert' do
-          it 'manufactures an insertion relation' do
-            Session.start do
-              record = {@relation[:name] => 'carl'}
-              mock(Session.new).create(Insert.new(@relation, record))
-              @relation.insert(record).should == @relation
-            end
-          end
+          it 'manufactures an insertion relation' # do
+#            Session.start do
+#              record = {@relation[:name] => 'carl'}
+#              mock(Session.new).create(Insert.new(@relation, record))
+#              @relation.insert(record).should == @relation
+#            end
+#          end
         end
 
         describe '#update' do

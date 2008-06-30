@@ -3,11 +3,11 @@ module Arel
     include Recursion::BaseCase
 
     cattr_accessor :engine
-    attr_reader :name, :engine    
+    attr_reader :name, :engine, :members_by_id
     hash_on :name
     
     def initialize(name, engine = Table.engine)
-      @name, @engine = name.to_s, engine
+      @name, @engine, @members_by_id = name.to_s, engine, {}
     end
 
     def attribute(name)
@@ -36,6 +36,14 @@ module Arel
     def ==(other)
       Table      === other and
       name       ==  other.name
+    end
+
+    def read
+      members_by_id.values.sort_by {|tuple| tuple.id}
+    end
+
+    def insert(tuple)
+      members_by_id[tuple.id] = tuple
     end
   end
 end
