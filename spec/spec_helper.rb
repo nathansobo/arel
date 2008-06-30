@@ -16,6 +16,7 @@ Spec::Runner.configure do |config|
   config.mock_with :rr
   config.before do
     Arel::Table.engine = Arel::Engine.new(Fake::Engine.new)
+
     @users_relation = users_relation = Arel::Table.new(:users)
     users_relation.attribute(:id)
     users_relation.attribute(:name)
@@ -23,9 +24,18 @@ Spec::Runner.configure do |config|
       include Arel::Tuple
       member_of users_relation
     end
+
+    @photos_relation = photos_relation = Arel::Table.new(:photos)
+    photos_relation.attribute(:id)
+    photos_relation.attribute(:user_id)
+    photos_relation.attribute(:camera_id)
+    @photo_tuple_class = Class.new do
+      include Arel::Tuple
+      member_of photos_relation
+    end
   end
 end
 
 class Spec::ExampleGroup
-  attr_reader :users_relation, :user_tuple_class
+  attr_reader :users_relation, :user_tuple_class, :photos_relation, :photo_tuple_class
 end
